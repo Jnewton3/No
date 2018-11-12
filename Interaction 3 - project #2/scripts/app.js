@@ -26,13 +26,14 @@ $.ajax({
 
     var myColor = "";
     var count = 0;
+		var pricecount = 0;
     var colorcount = 0;
     var round = 0;
     var total = 0.00;
     myColor = getRandomColor();
 
     $(document).on("click", ".box", function(e) {
-      var thing = "#" + round + count
+      var thing = "#" + round + count;
       $(".box").append("<div class='dbItem' id = '" + round + count + "'>" + data[count].ticketNumber.replace("DAH", "") + "</br>" + data[count].violationStreetNumber + " " + data[count].violationStreetName + "</div>");
       var x = e.clientX;
       var y = e.clientY;
@@ -52,13 +53,22 @@ $.ajax({
       $(thing).fadeOut(600000, function() {
         $(this).remove();
       });
-
-			$(thing).css("font-size", getRandomInt(8, 40) + 'pt');
+			if (data[count].fineAmount <= 999) {
+			$(thing).css("font-size", data[count].fineAmount * 0.1 + 'pt');
+			}
+			if (data[count].fineAmount >= 999) {
+			$(thing).css("font-size", data[count].fineAmount * 0.01 + 'pt');
+			}
 
       total += cost;
       console.log(total.toFixed(2));
 
       $('.price').html("$" + total.toFixed(2));
+			$(".price").append("<div id = 'a" + pricecount + "'>" + "+ $" + cost.toFixed(2) + "</div>");
+			var pricething = "#a" + pricecount;
+			$(pricething).fadeOut(1000, function() {
+        $(this).remove();
+      });
 
       if (colorcount <= 10) {
         colorcount += 1;
@@ -70,6 +80,7 @@ $.ajax({
 
       if (count <= 4423) {
         count += 1;
+				pricecount += 1;
       } else {
         count = 0;
       }
