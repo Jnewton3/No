@@ -41,6 +41,8 @@ body {
   padding: 0px;
   font-family: 'Permanent Marker', sans-serif;
   font-size: 8pt;
+  height: 100%;
+  overflow: hidden
 }
 
 .box {
